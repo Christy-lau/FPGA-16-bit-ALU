@@ -13,12 +13,10 @@ module au_top (
   
   sig rst;                  // reset signal
   
-  
   input_storer inputstorer; // for storing inputs
   alu alu16; // takes in inputs and alufn and gives output and zvn
   counter slowclock(#SIZE(1),#DIV(26), .clk(clk), .rst(rst));
-  auto_tester autotester(.clk(slowclock.value), .rst(rst)); //auto_tester autotester;
-  
+  auto_tester autotester(.clk(slowclock.value), .rst(io_button[0])); //auto_tester autotester;
 
   
   .clk(clk) {
@@ -41,9 +39,9 @@ module au_top (
     
     autotester.switch = 0;
     
-    inputstorer.clk = 0;
+    inputstorer.clk = clk;
     inputstorer.value = 0;
-    inputstorer.rst = 0;
+    inputstorer.rst = io_button[2];
     inputstorer.button_a = 0;
     inputstorer.button_b = 0;
     alu16.a = 0;
@@ -53,8 +51,8 @@ module au_top (
     // Error simulation
     alu16.sim_error = io_dip[0][6];
     autotester.sim_error = io_dip[0][6];
-    
     // autotester
+
     if(io_dip[0][7] == 1) {
       autotester.switch = io_dip[0][7];
       if (autotester.result == b01) {
