@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FPGA-16-bit-ALU" board="Alchitry Au" language="Lucid" version="3">
+  <files>
+    <component>reset_conditioner.luc</component>
+    <src top="true">au_top.luc</src>
+    <constraint lib="true">au.xdc</constraint>
+    <constraint lib="true">io.acf</constraint>
+    <constraint lib="true">alchitry.acf</constraint>
+  </files>
+</project>
