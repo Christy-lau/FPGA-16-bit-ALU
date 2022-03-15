@@ -51,6 +51,9 @@ module adder_16 (
           b1: 
             muldiv_extended = extended_a / extended_b; // divide
             s = muldiv_extended[15:0];
+            if (extended_a[15] == 1 ^ extended_b[15] == 1) {
+              s = -s;
+            }
           default : s = 16b0; // 0
         } 
 
