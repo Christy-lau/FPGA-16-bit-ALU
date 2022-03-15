@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="FPGA-16-bit-ALU" board="Alchitry Au" language="Lucid" version="3">
   <files>
-    <src>shifter_16.luc</src>
     <src>compare_16.luc</src>
-    <component>reset_conditioner.luc</component>
-    <src>rom1.luc</src>
-    <src top="true">au_top.luc</src>
-    <component>button_conditioner.luc</component>
-    <src>input_storer.luc</src>
+    <src>shifter_16.luc</src>
+    <component>pipeline.luc</component>
     <src>auto_tester.luc</src>
-    <component>decoder.luc</component>
     <src>rom2.luc</src>
     <component>counter.luc</component>
-    <src>adder_16.luc</src>
     <src>alu.luc</src>
+    <src>adder_16.luc</src>
     <src>boolean_16.luc</src>
-    <component>pipeline.luc</component>
+    <component>decoder.luc</component>
+    <src top="true">au_top.luc</src>
+    <src>input_storer.luc</src>
+    <src>rom1.luc</src>
+    <component>reset_conditioner.luc</component>
     <component>edge_detector.luc</component>
-    <constraint lib="true">au.xdc</constraint>
-    <constraint lib="true">io.acf</constraint>
+    <component>button_conditioner.luc</component>
     <constraint lib="true">alchitry.acf</constraint>
+    <constraint lib="true">io.acf</constraint>
+    <constraint lib="true">au.xdc</constraint>
   </files>
 </project>
