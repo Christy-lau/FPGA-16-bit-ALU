@@ -3,7 +3,7 @@ module rom2 ( //check if output is correct
     output out[19]        //output 19 bits (S+Z+V+N)
   ) {
   
-  const INPUTS = {b0001000000000000010,  //29 - Divider
+  const INPUTS = {b1111000000000000001,  //29 - Divider
                   b1111111111111100001,  //28 - Multiplier (negative A)
                   b0000000010101110000,  //27 - Multiplier 
                   b1110000000000000000,  //26 - Shifter (Arithmetic Left Shift)

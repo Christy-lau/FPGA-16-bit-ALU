@@ -59,8 +59,31 @@ module adder_16_8 (
             s = muldiv_extended[0+15-:16];
           end
           1'h1: begin
-            muldiv_extended = extended_a / extended_b;
-            s = muldiv_extended[0+15-:16];
+            if (a[15+0-:1] == 1'h1 && b[15+0-:1] == 1'h0) begin
+              muldiv_extended = extended_a / extended_b;
+              s = muldiv_extended[0+15-:16];
+              s = -s;
+            end else begin
+              if (b[15+0-:1] == 1'h1 && a[15+0-:1] == 1'h0) begin
+                extended_b[0+15-:16] = (^b);
+                extended_b = extended_b + 1'h1;
+                muldiv_extended = extended_a / extended_b;
+                s = muldiv_extended[0+15-:16];
+                s = -s;
+              end else begin
+                if (a[15+0-:1] == 1'h1 && b[15+0-:1] == 1'h1) begin
+                  extended_a[0+15-:16] = (^a);
+                  extended_a = extended_a + 1'h1;
+                  extended_b[0+15-:16] = (^b);
+                  extended_b = extended_b + 1'h1;
+                  muldiv_extended = extended_a / extended_b;
+                  s = muldiv_extended[0+15-:16];
+                end else begin
+                  muldiv_extended = extended_a / extended_b;
+                  s = muldiv_extended[0+15-:16];
+                end
+              end
+            end
           end
           default: begin
             s = 16'h0000;

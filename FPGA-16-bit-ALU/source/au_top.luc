@@ -37,33 +37,35 @@ module au_top (
     io_seg = 8hff;          // turn segments off
     io_sel = 4hf;           // select no digits
     
-    autotester.switch = 0;
+    autotester.switch = 0; // instantiate switch from autotester with 0 first
     
-    inputstorer.clk = clk;
-    inputstorer.value = 0;
-    inputstorer.rst = io_button[2];
-    inputstorer.button_a = 0;
-    inputstorer.button_b = 0;
-    alu16.a = 0;
-    alu16.b = 0;
-    alu16.alufn = 0;
+    inputstorer.clk = clk; // instantiate clk from inputstorer with 0 first
+    inputstorer.value = 0; // instantiate value from inputstorer with 0 first
+    inputstorer.rst = io_button[2]; // instantiate rst from inputstorer with 0 first
+    inputstorer.button_a = 0; // instantiate button_a from inputstorer with 0 first
+    inputstorer.button_b = 0; // instantiate button_b from inputstorer with 0 first
+    alu16.a = 0; // instantiate a from alu16 with 0 first
+    alu16.b = 0; // instantiate b from alu16 with 0 first
+    alu16.alufn = 0; // instantiate alufn from alu16 with 0 first
 
     // Error simulation
     alu16.sim_error = io_dip[0][6];
     autotester.sim_error = io_dip[0][6];
+    
+    
     // autotester
-
     if(io_dip[0][7] == 1) {
       autotester.switch = io_dip[0][7];
       if (autotester.result == b01) {
-        io_led[0][7] = 1; // pass
-        io_led[0][6] = 1; // pass
+        // if both leds flicker off and on that means cases in autotester PASS
+        io_led[0][7] = 1; // io_led[0][7] will light up upon result from autotester = b01
+        io_led[0][6] = 1; // io_led[0][6] will light up upon result from autotester = b01
       }
       else if (autotester.result == b10) {
-        io_led[0][6] = 1; // fail
+        io_led[0][6] = 1; // io_led[0][6] will light up upon FAIL
       }
       else {
-        io_led[0][7:6] = 2b0; // default
+        io_led[0][7:6] = 2b0; // default state
       }
       
     }

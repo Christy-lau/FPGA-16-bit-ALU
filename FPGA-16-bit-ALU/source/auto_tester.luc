@@ -7,27 +7,29 @@ module auto_tester (
   )
  
   {
+    //All 32 states of the fsm,
     fsm feeder(.clk(clk), .rst(rst)) = {START, ADD, ADD1, ADD2, ADD3, SUB, SUB1, SUB2, SUB3,
                                       CMPEQT, CMPEQF, CMPLTT, CMPLTF, CMPLET, CMPLEF, CMPLETE,
                                       AND, OR, XOR, NOR, NAND, B, A,
                                       SHL, SHR, SLA, SRA, MULT, MULT1, DIV, PASS, FAIL};
 
+    //drawing inputs and answers from rom1 and rom2 resepctively
     rom1 inputs;
     rom2 answers;
     alu alu16;
     sig a[16], b[16], alufn[6], s[16], z, v, n, out[16];
 
-    
+    //auto_tester will go through each state one by one. Only when io_led[0][6] and io_led[0][7] stays lit up without 
+    //flickering will it mean that all states have PASSED, but if only io[0][6] stays lit up without any flickering will
+    //it mean that one of the states has failed.
     always {
-
-    
-      inputs.selector = b00000; 
-      answers.selector = b00000;
-      alu16.a = b0000000000000000;
-      alu16.b = b0000000000000000;
-      alu16.sim_error = sim_error;
-      alu16.alufn = b000000;
-      result = b00;
+      inputs.selector = b00000; // declaring input.selector as 0 before feeding input from respective modules into them
+      answers.selector = b00000; // declaring answers.selector as 0 before feeding input from respective modules into them
+      alu16.a = b0000000000000000; // declaring alu16.a as 0 before feeding input from respective modules into them
+      alu16.b = b0000000000000000; // declaring alu16.a as 0 before feeding input from respective modules into them
+      alu16.sim_error = sim_error; // declaring alu16.sim_error as 0 before feeding input from respective modules into them
+      alu16.alufn = b000000; //declaring alu16.alufn as 0 before feeding input from respective modules into them
+      result = b00; //declaring result as b00 as default state
     
       case (feeder.q) { // checks the current state of the FSM, feeder
         feeder.START: // starting state
@@ -35,10 +37,10 @@ module auto_tester (
             feeder.d = feeder.ADD; // commence the auto tester by testing Test Case #0
           }  
           else {
-            feeder.d = feeder.START;
+            feeder.d = feeder.START; // will wait till dip_switch[0][7] is on
           }
         feeder.ADD:
-          inputs.selector = b00000;
+          inputs.selector = b00000; 
           answers.selector = b00000;
           a = inputs.out[37:22];// A[15:0]
           b = inputs.out[21:6];// B[15:0]
@@ -47,20 +49,22 @@ module auto_tester (
           z = answers.out[2]; // Z
           v = answers.out[1]; // V
           n = answers.out[0]; // N
-        
+          
+          //feed values into alu16 to check FPGA output is correct
           alu16.alufn = alufn;
           alu16.a = a;
           alu16.b = b;
           out = alu16.out;
-
+          
+          //check s,z,v and n from alu to check if it tallies with the answers from rom2
           if (out == s && alu16.z == z && alu16.v == v && alu16.n == n){
             feeder.d = feeder.ADD1; // if correct go to next state
-            result = b01;
+            result = b01; //flicks on io_led[0][6] and io_led[0][7]
           }
         
           else {
             feeder.d = feeder.FAIL; //if fail go to FAIL state
-            result = b10;
+            result = b10; //flicks on io_led[0][6]
           }
 
         feeder.ADD1:
@@ -73,20 +77,22 @@ module auto_tester (
           z = answers.out[2]; // Z
           v = answers.out[1]; // V
           n = answers.out[0]; // N
-
+          
+          //feed values into alu16 to check FPGA output is correct
           alu16.alufn = alufn;
           alu16.a = a;
           alu16.b = b;
           out = alu16.out;
-
+          
+          //check s,z,v and n from alu to check if it tallies with the answers from rom2
           if (out == s && alu16.z == z && alu16.v == v && alu16.n == n){
             feeder.d = feeder.ADD2; // if correct go to next state
-            result = b00;
+            result = b00; //flicks off io_led[0][6] and io_led[0][7]
           }
         
           else{
             feeder.d = feeder.FAIL; //if fail go to FAIL state
-            result = b10;
+            result = b10; //flicks on io_led[0][6]
           }
 
         feeder.ADD2:
@@ -107,12 +113,12 @@ module auto_tester (
 
           if (out == s && alu16.z == z && alu16.v == v && alu16.n == n){
             feeder.d = feeder.ADD3; // if correct go to next state
-            result = b01;
+            result = b01; //flicks on io_led[0][6] and io_led[0][7]
           }
         
           else{
             feeder.d = feeder.FAIL; //if fail go to FAIL state
-            result = b10;
+            result = b10; //flicks on io_led[0][6]
           }
         feeder.ADD3:
           inputs.selector = b00011;
@@ -132,12 +138,12 @@ module auto_tester (
 
           if (out == s && alu16.z == z && alu16.v == v && alu16.n == n){
             feeder.d = feeder.SUB; // if correct go to next state
-            result = b00;
+            result = b00; //flicks off io_led[0][6] and io_led[0][7]
           }
         
           else{
             feeder.d = feeder.FAIL; //if fail go to FAIL state
-            result = b10;
+            result = b10; //flicks on io_led[0][6]
           }
         feeder.SUB:
           inputs.selector = b00100;
@@ -157,12 +163,12 @@ module auto_tester (
 
           if (out == s && alu16.z == z && alu16.v == v && alu16.n == n){
             feeder.d = feeder.SUB1; // if correct go to next state
-            result = b01;
+            result = b01; //will continue to flicker on and off for io_led[0][6] and io_led[0][7]
           }
         
           else{
             feeder.d = feeder.FAIL; //if fail go to FAIL state
-            result = b10;
+            result = b10; //flicks on io_led[0][6] for all other alu states
           }
         feeder.SUB1:
           inputs.selector = b00101;
@@ -765,12 +771,14 @@ module auto_tester (
             result = b10;
           }
         feeder.PASS:
-          result = b01;
+          result = b01; //flicks on io_led[0][6] and io_led[0][7]
+          // helps reset the state from PASS state to START state
           if (rst == 1) {
             feeder.d = feeder.START;
           }
         feeder.FAIL:
-          result = b10;
+          result = b10; //flicks on io_led[0][6]
+          // helps reset the state from FAIL state to START state
           if (rst == 1) {
             feeder.d = feeder.START;
           }
