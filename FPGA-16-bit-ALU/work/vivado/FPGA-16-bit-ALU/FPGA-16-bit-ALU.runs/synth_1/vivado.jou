@@ -2,8 +2,8 @@
 # Vivado v2021.2 (64-bit)
 # SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
 # IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
-# Start of session at: Wed Mar 16 00:53:21 2022
-# Process ID: 23268
+# Start of session at: Wed Mar 16 01:15:42 2022
+# Process ID: 9404
 # Current directory: C:/Users/nicho/Documents/GitHub/FPGA-16-bit-ALU/FPGA-16-bit-ALU/work/vivado/FPGA-16-bit-ALU/FPGA-16-bit-ALU.runs/synth_1
 # Command line: vivado.exe -log au_top_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source au_top_0.tcl
 # Log file: C:/Users/nicho/Documents/GitHub/FPGA-16-bit-ALU/FPGA-16-bit-ALU/work/vivado/FPGA-16-bit-ALU/FPGA-16-bit-ALU.runs/synth_1/au_top_0.vds

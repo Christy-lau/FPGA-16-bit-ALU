@@ -766,8 +766,14 @@ module auto_tester (
           }
         feeder.PASS:
           result = b01;
+          if (rst == 1) {
+            feeder.d = feeder.START;
+          }
         feeder.FAIL:
           result = b10;
+          if (rst == 1) {
+            feeder.d = feeder.START;
+          }
       }
     
     }

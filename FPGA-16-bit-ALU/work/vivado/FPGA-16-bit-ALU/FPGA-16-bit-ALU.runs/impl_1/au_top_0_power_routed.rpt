@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
-| Date             : Wed Mar 16 00:55:36 2022
+| Date             : Wed Mar 16 01:17:56 2022
 | Host             : LAPTOP-D6VM0O5J running 64-bit major release  (build 9200)
 | Command          : report_power -file au_top_0_power_routed.rpt -pb au_top_0_power_summary_routed.pb -rpx au_top_0_power_routed.rpx
 | Design           : au_top_0
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.092        |
+| Total On-Chip Power (W)  | 0.131        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.021        |
+| Dynamic (W)              | 0.059        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.9          |
-| Max Ambient (C)          | 84.6         |
-| Junction Temperature (C) | 25.4         |
+| Max Ambient (C)          | 84.4         |
+| Junction Temperature (C) | 25.6         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,18 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.001 |        3 |       --- |             --- |
-| Slice Logic    |     0.004 |     2199 |       --- |             --- |
-|   LUT as Logic |     0.003 |     1586 |     20800 |            7.63 |
-|   CARRY4       |    <0.001 |      191 |      8150 |            2.34 |
-|   Register     |    <0.001 |      114 |     41600 |            0.27 |
+| Clocks         |     0.002 |        3 |       --- |             --- |
+| Slice Logic    |     0.023 |     2201 |       --- |             --- |
+|   LUT as Logic |     0.022 |     1586 |     20800 |            7.63 |
+|   CARRY4       |     0.001 |      191 |      8150 |            2.34 |
 |   F7/F8 Muxes  |    <0.001 |       45 |     32600 |            0.14 |
+|   Register     |    <0.001 |      114 |     41600 |            0.27 |
 |   Others       |     0.000 |       34 |       --- |             --- |
-| Signals        |     0.004 |     1954 |       --- |             --- |
+| Signals        |     0.022 |     1956 |       --- |             --- |
 | DSPs           |    <0.001 |        2 |        90 |            2.22 |
 | I/O            |     0.012 |       76 |       170 |           44.71 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.092 |          |           |                 |
+| Total          |     0.131 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.019 |       0.009 |      0.010 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.057 |       0.048 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.004 |       0.003 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -142,9 +142,14 @@ Table of Contents
 +---------------+-----------+
 | Name          | Power (W) |
 +---------------+-----------+
-| au_top_0      |     0.021 |
+| au_top_0      |     0.059 |
 |   alu16       |     0.003 |
 |     adder     |     0.003 |
+|   autotester  |     0.038 |
+|     alu16     |     0.005 |
+|       adder   |     0.005 |
+|     answers   |     0.003 |
+|     inputs    |     0.029 |
 |   inputstorer |     0.005 |
 +---------------+-----------+
 

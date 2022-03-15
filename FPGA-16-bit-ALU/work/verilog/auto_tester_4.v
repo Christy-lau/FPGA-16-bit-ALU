@@ -751,9 +751,15 @@ module auto_tester_4 (
       end
       PASS_feeder: begin
         result = 2'h1;
+        if (rst == 1'h1) begin
+          M_feeder_d = START_feeder;
+        end
       end
       FAIL_feeder: begin
         result = 2'h2;
+        if (rst == 1'h1) begin
+          M_feeder_d = START_feeder;
+        end
       end
     endcase
   end
